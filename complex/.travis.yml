@@ -1,0 +1,25 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t daun/multiple-docker-react -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true daun/multiple-docker-react npm test -- --coverage
+
+after_success:
+  - docker build -t <your-docker-username>/multi-client ./client
+  - docker build -t <your-docker-username>/multi-nginx ./nginx
+  - docker build -t <your-docker-username>/multi-server ./server
+  - docker build -t <your-docker-username>/multi-worker ./worker
+
+# Log in to docker CLI
+  - echo $"DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+# Take those images and push them to docker hub
+  - docker push <your-docker-username>/multi-client
+  - docker push <your-docker-username>/multi-nginx
+  - docker push <your-docker-username>/multi-server
+  - docker push <your-docker-username>/multi-worker
+
