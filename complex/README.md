@@ -36,4 +36,5 @@ docker run worker/docker-react
 # run cli
 docker-compose up
 ~~~
+- kubectl create secret generic pgpassword  --from-literal PGPASSWORD=123456789
 
