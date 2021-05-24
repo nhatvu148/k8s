@@ -37,4 +37,5 @@ docker run worker/docker-react
 docker-compose up
 ~~~
 - kubectl create secret generic pgpassword  --from-literal PGPASSWORD=123456789
+- ingress install: https://kubernetes.github.io/ingress-nginx/deploy/#provider-specific-steps
 
